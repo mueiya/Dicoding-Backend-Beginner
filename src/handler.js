@@ -186,6 +186,32 @@ const putBookById = (req, h) => {
   return res;
 };
 
+// Handler for Delete Books by Id
+const deleteBookById = (req, h) => {
+  // Get params
+  const { id } = req.params;
+
+  // Using find because the id is unique
+  const targetIndex = books.findIndex((i) => i.id === id);
+
+  if (targetIndex !== -1) {
+    books.splice(targetIndex, 1);
+
+    const res = h.response({
+      status: 'success',
+      message: 'Buku berhasil dihapus',
+    });
+    res.code(200);
+    return res;
+  }
+  const res = h.response({
+    status: 'fail',
+    message: 'Buku gagal dihapus. Id tidak ditemukan',
+  });
+  res.code(404);
+  return res;
+};
+
 module.exports = {
-  postBook, getBooks, getBookById, putBookById,
+  postBook, getBooks, getBookById, putBookById, deleteBookById,
 };
