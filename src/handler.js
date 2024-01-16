@@ -1,6 +1,32 @@
 const { nanoid } = require('nanoid');
 const books = require('./books');
 
+// validation
+const validatePage = (readPage, pageCount) => {
+  if (readPage > pageCount) {
+    const res = h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+    });
+    res.code(400);
+    return res;
+  }
+
+  return null; // mean, validation passed
+};
+
+const validateName = (name) => {
+  if (!name) {
+    const res = h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
+    });
+    res.code(400);
+    return res;
+  }
+  return null; // mean, validation passed
+};
+
 // Handler for Post Books
 const postBook = (req, h) => {
   const {
@@ -14,24 +40,12 @@ const postBook = (req, h) => {
     reading,
   } = req.payload;
 
-  // Validate name is not empty
-  if (!name) {
-    const res = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku',
-    });
-    res.code(400);
-    return res;
-  }
+  // Validate name
+  const nameValidation = validateName(name);
+  if (nameValidation) return nameValidation;
   // Validate page
-  if (readPage > pageCount) {
-    const res = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
-    });
-    res.code(400);
-    return res;
-  }
+  const pageValidation = validatePage(readPage, pageCount);
+  if (pageValidation) return pageValidation;
 
   // Create new required properties
   const id = nanoid(16);
@@ -95,6 +109,7 @@ const getBooks = (req, h) => {
 
 // Handler for Get Books by Id
 const getBookById = (req, h) => {
+  // Get params
   const { id } = req.params;
 
   // Using find because the id is unique
@@ -117,4 +132,54 @@ const getBookById = (req, h) => {
   res.code(404);
   return res;
 };
+
+// Handler for Put Books
+const putBookById = (req, h) => {
+  // get id from params
+  const { id } = req.params;
+  // get body request from payload
+  const {
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    reading,
+  } = req.payload;
+
+  // Search for book index using id
+  const targetIndex = books.findIndex((i) => i.id === id);
+
+  // checking if the target is valid
+  if (targetIndex !== -1) {
+    // Change the object
+    books[targetIndex] = {
+      ...books[targetIndex],
+      name,
+      year,
+      author,
+      summary,
+      publisher,
+      pageCount,
+      readPage,
+      reading,
+    };
+
+    const res = h.response({
+      status: 'success',
+      message: 'Buku berhasil diperbarui',
+    });
+    res.code(200);
+    return res;
+  }
+  const res = h.response({
+    status: 'fail',
+    message: 'Gagal memperbarui buku. Id tidak ditemukan',
+  });
+  res.code(404);
+  return res;
+};
+
 module.exports = { postBook, getBooks, getBookById };
