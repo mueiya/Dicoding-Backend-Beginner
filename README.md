@@ -1,6 +1,6 @@
-# Submission Bookshelf API
+# Dicoding BackEnd Beginner - Submission Bookshelf API
 
-This repository contains the code for the BackEnd-Pemula course submission on Dicoding. The project is named "Submission Bookshelf API," which is a simple RESTful API developed using the Hapi framework in Node.js. The API allows basic CRUD (Create, Read, Update, Delete) operations related to bookshelf data.
+This repository contains the code for the BackEnd Beginner course submission on Dicoding. The project is named "Submission Bookshelf API," which is a simple RESTful API developed using the Hapi framework in Node.js. The API allows basic CRUD (Create, Read, Update, Delete) operations related to bookshelf data.
 
 ## Prerequisites
 
@@ -13,13 +13,13 @@ This repository contains the code for the BackEnd-Pemula course submission on Di
 1. Clone this repository to your local machine:
 
     ```bash
-    git clone https://github.com/your-username/Submission-Bookshelf-API.git
+    git clone https://github.com/your-username/Dicoding-BackEnd-Beginner.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd Submission-Bookshelf-API
+    cd Dicoding-BackEnd-Beginner
     ```
 
 3. Install dependencies:
@@ -42,3 +42,16 @@ If you want to run the application in development mode with auto-restart using n
 
 ```bash
 npm run start-dev
+```
+
+## Endpoints
+
+- `GET /books`: Get all books.
+- `GET /books/{bookId}`: Get a specific book by ID.
+- `POST /books`: Add a new book.
+- `PUT /books/{bookId}`: Update a book by ID.
+- `DELETE /books/{bookId}`: Delete a book by ID.
+
+## Usage
+
+You can use tools like [Postman](https://www.postman.com/) to test the API endpoints.
