@@ -1,32 +1,6 @@
 const { nanoid } = require('nanoid');
 const books = require('./books');
 
-// validation
-const validatePage = (readPage, pageCount, h) => {
-  if (readPage > pageCount) {
-    const res = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
-    });
-    res.code(400);
-    return res;
-  }
-
-  return null; // mean, validation passed
-};
-
-const validateName = (name, h) => {
-  if (!name) {
-    const res = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku',
-    });
-    res.code(400);
-    return res;
-  }
-  return null; // mean, validation passed
-};
-
 // Handler for Post Books
 const postBook = (req, h) => {
   const {
@@ -41,11 +15,23 @@ const postBook = (req, h) => {
   } = req.payload;
 
   // Validate name
-  const nameValidation = validateName(name, h);
-  if (nameValidation) return nameValidation;
-  // Validate page
-  const pageValidation = validatePage(readPage, pageCount, h);
-  if (pageValidation) return pageValidation;
+  if (!name) {
+    const res = h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
+    });
+    res.code(400);
+    return res;
+  }
+  // validate pageCount
+  if (readPage > pageCount) {
+    const res = h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+    });
+    res.code(400);
+    return res;
+  }
 
   // Create new required properties
   const id = nanoid(16);
@@ -149,6 +135,24 @@ const putBookById = (req, h) => {
     reading,
   } = req.payload;
 
+  // Validate name
+  if (!name) {
+    const res = h.response({
+      status: 'fail',
+      message: 'Gagal memperbarui  buku. Mohon isi nama buku',
+    });
+    res.code(400);
+    return res;
+  }
+  // validate pageCount
+  if (readPage > pageCount) {
+    const res = h.response({
+      status: 'fail',
+      message: 'Gagal memperbarui  buku. readPage tidak boleh lebih besar dari pageCount',
+    });
+    res.code(400);
+    return res;
+  }
   // Search for book index using id
   const targetIndex = books.findIndex((i) => i.id === id);
 
