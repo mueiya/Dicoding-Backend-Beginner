@@ -82,7 +82,11 @@ const getBooks = (req, h) => {
   const res = h.response({
     status: 'success',
     data: {
-      books,
+      books: books.map((book) => ({
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+      })),
     },
   });
   res.code(200);
