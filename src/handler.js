@@ -2,7 +2,7 @@ const { nanoid } = require('nanoid');
 const books = require('./books');
 
 // validation
-const validatePage = (readPage, pageCount) => {
+const validatePage = (readPage, pageCount, h) => {
   if (readPage > pageCount) {
     const res = h.response({
       status: 'fail',
@@ -15,7 +15,7 @@ const validatePage = (readPage, pageCount) => {
   return null; // mean, validation passed
 };
 
-const validateName = (name) => {
+const validateName = (name, h) => {
   if (!name) {
     const res = h.response({
       status: 'fail',
@@ -41,10 +41,10 @@ const postBook = (req, h) => {
   } = req.payload;
 
   // Validate name
-  const nameValidation = validateName(name);
+  const nameValidation = validateName(name, h);
   if (nameValidation) return nameValidation;
   // Validate page
-  const pageValidation = validatePage(readPage, pageCount);
+  const pageValidation = validatePage(readPage, pageCount, h);
   if (pageValidation) return pageValidation;
 
   // Create new required properties
@@ -182,4 +182,6 @@ const putBookById = (req, h) => {
   return res;
 };
 
-module.exports = { postBook, getBooks, getBookById };
+module.exports = {
+  postBook, getBooks, getBookById, putBookById,
+};
