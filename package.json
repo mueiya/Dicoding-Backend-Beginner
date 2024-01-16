@@ -1,0 +1,22 @@
+{
+  "name": "dicoding-backend-beginner",
+  "version": "1.0.0",
+  "description": "This repository contains the code for the BackEnd Beginner course submission on Dicoding. The project is named \"Submission Bookshelf API,\" which is a simple RESTful API developed using the Hapi framework in Node.js. The API allows basic CRUD (Create, Read, Update, Delete) operations related to bookshelf data.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "start-dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.0.2"
+  }
+}
