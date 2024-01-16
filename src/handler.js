@@ -68,7 +68,7 @@ const postBook = (req, h) => {
     return res;
   }
 
-  // Default response
+  // Default response when server failed
   const res = h.response({
     status: 'Error',
     message: 'Server Error',
@@ -92,4 +92,29 @@ const getBooks = (req, h) => {
   res.code(200);
   return res;
 };
-module.exports = { postBook, getBooks };
+
+// Handler for Get Books by Id
+const getBookById = (req, h) => {
+  const { id } = req.params;
+
+  // Using find because the id is unique
+  const book = books.find((i) => i.id === id);
+
+  if (book) {
+    const res = h.response({
+      status: 'success',
+      data: {
+        book,
+      },
+    });
+    res.code(200);
+    return res;
+  }
+  const res = h.response({
+    status: 'fail',
+    message: 'Buku tidak ditemukan',
+  });
+  res.code(404);
+  return res;
+};
+module.exports = { postBook, getBooks, getBookById };
