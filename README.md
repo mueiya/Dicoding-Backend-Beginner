@@ -54,4 +54,4 @@ npm run start-dev
 
 ## Usage
 
-You can use tools like [Postman](https://www.postman.com/) to test the API endpoints.
+You can use tools like [Postman](https://www.postman.com/) to test the API endpoints. And here's the [link](https://github.com/dicodingacademy/a261-backend-pemula-labs/raw/099-shared-files/BookshelfAPITestCollectionAndEnvironment.zip) to the test collection and environment provided by Dicoding.
