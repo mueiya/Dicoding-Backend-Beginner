@@ -79,13 +79,50 @@ const postBook = (req, h) => {
 
 // Handler for Get Books
 const getBooks = (req, h) => {
+  // Get query params
+  const {
+    name,
+    reading,
+    finished,
+  } = req.query;
+
+  if (name === undefined && reading === undefined && finished === undefined) {
+    const res = h.response({
+      status: 'success',
+      data: {
+        books: books.map((i) => ({
+          id: i.id,
+          name: i.name,
+          publisher: i.publisher,
+        })),
+      },
+    });
+    res.code(200);
+    return res;
+  }
+
+  // filter the books
+  const filteredBooks = books.filter((i) => {
+    // convert from string to bool
+    const isFinished = finished === '1';
+    const isReading = reading === '1';
+    const nameFilter = name ? i.name.toLowerCase().includes(name.toLowerCase()) : true;
+    const readingFilter = reading !== undefined ? i.reading === isReading : true;
+    const finishedFilter = finished !== undefined ? i.finished === isFinished : true;
+
+    return nameFilter && readingFilter && finishedFilter;
+  });
+
+  console.log(filteredBooks);
+
+  // response for filteredBooks
   const res = h.response({
     status: 'success',
     data: {
-      books: books.map((book) => ({
-        id: book.id,
-        name: book.name,
-        publisher: book.publisher,
+      books: filteredBooks.map((i) => ({
+        id: i.id,
+        name: i.name,
+        publisher: i.publisher,
       })),
     },
   });
