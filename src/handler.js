@@ -139,7 +139,7 @@ const putBookById = (req, h) => {
   if (!name) {
     const res = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui  buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui buku. Mohon isi nama buku',
     });
     res.code(400);
     return res;
@@ -148,7 +148,7 @@ const putBookById = (req, h) => {
   if (readPage > pageCount) {
     const res = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui  buku. readPage tidak boleh lebih besar dari pageCount',
+      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     });
     res.code(400);
     return res;
