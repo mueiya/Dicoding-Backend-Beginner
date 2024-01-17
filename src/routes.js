@@ -1,6 +1,6 @@
 const {
   postBook, getBooks, getBookById, putBookById, deleteBookById,
-} = require('./handler');
+} = require('./handlers');
 
 const routes = [
   {
