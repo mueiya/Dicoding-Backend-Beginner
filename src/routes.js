@@ -1,7 +1,9 @@
+// Import the handlers module
 const {
   postBook, getBooks, getBookById, putBookById, deleteBookById,
 } = require('./handlers');
 
+// Routes Setting
 const routes = [
   {
     method: 'POST',

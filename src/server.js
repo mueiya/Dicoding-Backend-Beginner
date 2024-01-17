@@ -1,4 +1,5 @@
 const Hapi = require('@hapi/hapi');
+// Import Routes Module
 const routes = require('./routes');
 
 // Initialize an async function to set up the Hapi server
